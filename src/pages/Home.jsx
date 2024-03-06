@@ -5,6 +5,7 @@ import bitcoin from "../assets/bitcoin.webp";
 import TradingViewWidget from "../components/TradingViewWidget";
 import Performance from "../components/Home/Performance";
 import Sentiment from "../components/Home/Sentiment";
+import About from "../components/Home/About";
 
 function Home() {
   //   useEffect(() => {
@@ -98,6 +99,7 @@ function Home() {
             </div>
             <Performance />
             <Sentiment />
+            <About />
           </div>
           <div>ok</div>
         </div>
