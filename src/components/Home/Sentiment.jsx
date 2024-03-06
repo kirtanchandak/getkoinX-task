@@ -37,7 +37,7 @@ function Sentiment() {
             </div>
 
             <div className="mt-4">
-              <div className="md:flex md:p-8 gap-4 space-y-6">
+              <div className="md:flex md:p-8 gap-4">
                 {cards.map((card) => (
                   <div className={`bg-[${card.color}] rounded-xl py-6 px-4`}>
                     <div className="flex gap-4">
