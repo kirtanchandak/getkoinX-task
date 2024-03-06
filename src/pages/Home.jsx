@@ -6,6 +6,7 @@ import TradingViewWidget from "../components/TradingViewWidget";
 import Performance from "../components/Home/Performance";
 import Sentiment from "../components/Home/Sentiment";
 import About from "../components/Home/About";
+import Team from "../components/Home/Team";
 
 function Home() {
   //   useEffect(() => {
@@ -100,6 +101,7 @@ function Home() {
             <Performance />
             <Sentiment />
             <About />
+            <Team />
           </div>
           <div>ok</div>
         </div>
