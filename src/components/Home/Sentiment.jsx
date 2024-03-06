@@ -2,9 +2,6 @@ import file from "../../assets/file.png";
 import toTheMoon from "../../assets/toTheMoon.png";
 import iButton from "../../assets/iButton.png";
 import seventysix from "../../assets/76.png";
-import greenLine from "../../assets/greenLine.png";
-import grayLine from "../../assets/grayLine.png";
-import xsRed from "../../assets/xsRedLine.png";
 
 const cards = [
   {
@@ -61,7 +58,7 @@ function Sentiment() {
               </div>
               <div className="mt-8 flex md:gap-6 gap-4 text-[#7C7E8C]">
                 <img src={seventysix} alt="" className="object-contain" />
-                <div className="md:mt-6 space-y-6">
+                <div className="md:mt-6">
                   <div className="flex md:gap-4 gap-2">
                     <p className="">Buy</p>
                     <hr className="border-[3px] border-green-500 md:w-40 w-16 mt-3" />
