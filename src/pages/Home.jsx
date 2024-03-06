@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, memo } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import bitcoin from "../assets/bitcoin.webp";
 import TradingViewWidget from "../components/TradingViewWidget";
 import Performance from "../components/Home/Performance";
+import Sentiment from "../components/Home/Sentiment";
 
 function Home() {
   //   useEffect(() => {
@@ -96,6 +97,7 @@ function Home() {
               </div>
             </div>
             <Performance />
+            <Sentiment />
           </div>
           <div>ok</div>
         </div>

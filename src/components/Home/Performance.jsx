@@ -1,4 +1,3 @@
-import React from "react";
 import redLine from "../../assets/redline.svg";
 import smallRedLine from "../../assets/smallRedLine.svg";
 
@@ -142,7 +141,7 @@ function Performance() {
               <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                 {performanceDataLeft.map((item) => (
                   <div>
-                    <div className="flex md:justify-between pl-0 p-4 font-medium gap-8">
+                    <div className="flex md:justify-between p-4 font-medium gap-8">
                       <p className=" text-[#768396] md:w-auto w-40">
                         {item.name}
                       </p>
