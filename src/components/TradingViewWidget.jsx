@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, memo } from "react";
 
-function TradingViewWidget({ value }) {
+function TradingViewWidget() {
   const container = useRef();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ function TradingViewWidget({ value }) {
         {
           "autosize": true,
           "symbol": "BITSTAMP:BTCUSD",
-          "interval": "${value}",
+          "interval": "1H",
           "timezone": "Etc/UTC",
           "theme": "light",
           "style": "2",

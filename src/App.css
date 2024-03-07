@@ -2,3 +2,7 @@ body {
     background-color: #EFF2F5;
     font-family: "Inter", sans-serif;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}

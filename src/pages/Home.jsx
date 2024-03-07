@@ -9,13 +9,11 @@ import About from "../components/Home/About";
 import Team from "../components/Home/Team";
 import illustration from "../assets/illustration.png";
 import polygon from "../assets/polygon.png";
+import MoreCurrencies from "../components/Home/MoreCurrencies";
+import before from "../assets/__before.png";
 
 function Home() {
-  const [trendingCoins, setTrendingCoins] = useState([
-    {
-      id: 1,
-    },
-  ]);
+  const [trendingCoins, setTrendingCoins] = useState([]);
   //   useEffect(() => {
   //     const getResponse = async () => {
   //       const apiUrl = `https://api.coingecko.com/api/v3/simple/price?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK`;
@@ -34,40 +32,71 @@ function Home() {
   //     getResponse();
   //   }, []);
 
-  useEffect(() => {
-    const getTrendingCoins = async () => {
-      try {
-        const res = await axios.get(
-          "https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK"
-        );
-        setTrendingCoins(res.data.coins.slice(0, 3));
-        console.log(trendingCoins);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getTrendingCoins();
-  }, []);
+  // useEffect(() => {
+  //   const getTrendingCoins = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK"
+  //       );
+  //       setTrendingCoins(res.data.coins.slice(0, 3));
+  //       console.log(trendingCoins);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getTrendingCoins();
+  // }, []);
 
   const timeline = [
     {
       id: 1,
       name: "1H",
-      value: "D",
     },
     {
-      id: 1,
+      id: 2,
       name: "24H",
-      value: "W",
+    },
+    {
+      id: 3,
+      name: "7D",
+    },
+    {
+      id: 4,
+      name: "1M",
+    },
+    {
+      id: 5,
+      name: "3M",
+    },
+    {
+      id: 6,
+      name: "6M",
+    },
+    {
+      id: 6,
+      name: "1Y",
+    },
+    {
+      id: 6,
+      name: "ALL",
     },
   ];
+  const [activeTimeline, setActiveTimeline] = useState(0);
+
+  const handleClick = (index, value) => {
+    setActiveTimeline(index);
+  };
 
   return (
     <>
       <Navbar />
       <div className="md:px-20 px-6 mt-8">
         <div>
-          <p>Cryptocurrencies Bitcoin</p>
+          <p className="flex gap-2">
+            <span className="text-[#3E5765]">Cryptocurrencies</span>{" "}
+            <img src={before} alt="" className="object-contain" />
+            <span className="font-semibold">Bitcoin</span>
+          </p>
         </div>
         <div className="md:flex mt-4 md:gap-6">
           <div className="md:w-3/4">
@@ -109,18 +138,28 @@ function Home() {
                   </div>
                 </div>
                 <div className="mt-5">
-                  <div className="flex justify-between">
+                  <div className="md:flex justify-between">
                     <p className="md:text-xl text-sm font-bold">
                       Bitcoin Price Chart (USD)
                     </p>
-                    <div className="md:flex hidden gap-5">
-                      {timeline.map((timeline) => (
-                        <button>{timeline.name}</button>
+                    <div className="flex md:gap-5 mt-3 md:mt-0">
+                      {timeline.map((timeline, index) => (
+                        <button
+                          key={index}
+                          className={`md:px-3 px-2 py-1 text-xs md:text-sm rounded-2xl focus:outline-none ${
+                            activeTimeline === index
+                              ? "bg-[#E2ECFE] text-[#0141CF]"
+                              : ""
+                          }`}
+                          onClick={() => handleClick(index, timeline.value)}
+                        >
+                          {timeline.name}
+                        </button>
                       ))}
                     </div>
                   </div>
                   <div className="mt-5">
-                    <TradingViewWidget value="D" />
+                    <TradingViewWidget />
                   </div>
                 </div>
               </div>
@@ -148,7 +187,7 @@ function Home() {
                 </button>
               </div>
             </div>
-            <div className="bg-white mt-4 p-4">
+            <div className="bg-white mt-4 p-4 rounded-lg">
               <h1 className="font-bold text-lg">Trending Coins (24H)</h1>
               <div className="mt-3">
                 {trendingCoins.map((coin) => (
@@ -177,6 +216,9 @@ function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <MoreCurrencies />
       </div>
     </>
   );

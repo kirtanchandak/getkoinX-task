@@ -36,8 +36,8 @@ function Sentiment() {
               <img src={iButton} alt="" className="object-contain w-6 mt-1" />
             </div>
 
-            <div className="mt-4">
-              <div className="md:flex md:p-8 gap-4">
+            <div className="mt-4 overflow-x-auto">
+              <div className="flex md:p-8 gap-4 min-w-[1000px] z-1">
                 {cards.map((card) => (
                   <div className={`bg-[${card.color}] rounded-xl py-6 px-4`}>
                     <div className="flex gap-4">
