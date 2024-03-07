@@ -3,7 +3,7 @@ import React from "react";
 function Page() {
   return (
     <>
-      <div className="text-center pt-20">
+      <div className="text-center pt-20 px-8">
         <h1 className="text-4xl font-bold">Hellon KoinX!👋</h1>
         <p className="text-xl font-semibold mt-4">
           I've completed the optional task, head over to - "/solana"
