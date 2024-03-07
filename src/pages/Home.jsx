@@ -33,20 +33,22 @@ function Home() {
   //     getResponse();
   //   }, []);
 
-  // useEffect(() => {
-  //   const getTrendingCoins = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         "https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK"
-  //       );
-  //       setTrendingCoins(res.data.coins.slice(0, 3));
-  //       console.log(trendingCoins);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getTrendingCoins();
-  // }, []);
+  useEffect(() => {
+    const getTrendingCoins = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=${
+            import.meta.env.VITE_GECKO_API_KEY
+          }`
+        );
+        setTrendingCoins(res.data.coins.slice(0, 3));
+        console.log(trendingCoins);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getTrendingCoins();
+  }, []);
 
   const timeline = [
     {

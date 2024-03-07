@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import bitcoin from "../../assets/bitcoin.webp";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+
 import rightArrow from "../../assets/rightarrow.png";
 import leftArrow from "../../assets/leftarrow.png";
 
 function MoreCurrencies() {
-  const [coins, setCoins] = useState([
-    {
-      id: 1,
-    },
-  ]);
+  const [coins, setCoins] = useState([]);
 
-  // useEffect(() => {
-  //   const getTrendingCoins = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         "https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK"
-  //       );
-  //       setCoins(res?.data?.coins);
-  //       console.log(coins);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getTrendingCoins();
-  // }, []);
+  useEffect(() => {
+    const getTrendingCoins = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=${
+            import.meta.env.VITE_GECKO_API_KEY
+          }`
+        );
+        setCoins(res?.data?.coins);
+        console.log(coins);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getTrendingCoins();
+  }, []);
 
   const slideLeft = () => {
     var slider = document.getElementById("slider");
@@ -42,20 +39,20 @@ function MoreCurrencies() {
       <div className="md:px-20 px-6 mt-8 pb-20">
         <h1 className="text-xl font-bold">You May Also Like</h1>
         <div className="relative">
-          <button onClick={slideLeft}>
+          <button onClick={slideLeft} className="z-10">
             <img
               src={leftArrow}
-              className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 z-10 mt-4"
+              className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 mt-4"
             />
           </button>
-          <button onClick={slideRight}>
+          <button onClick={slideRight} className="z-10">
             <img
               src={rightArrow}
-              className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 z-10 mt-4"
+              className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 mt-4"
             />
           </button>
 
-          <div id="slider" className="mt-4 overflow-x-auto">
+          <div id="slider" className=" overflow-x-auto">
             <div className="flex gap-5">
               {coins.map((coin) => (
                 <div
