@@ -11,6 +11,7 @@ import illustration from "../assets/illustration.png";
 import polygon from "../assets/polygon.png";
 import MoreCurrencies from "../components/Home/MoreCurrencies";
 import before from "../assets/__before.png";
+import Tokenomics from "../components/Home/Tokenomics";
 
 function Home() {
   const [trendingCoins, setTrendingCoins] = useState([]);
@@ -167,6 +168,7 @@ function Home() {
             <Performance />
             <Sentiment />
             <About />
+            <Tokenomics />
             <Team />
           </div>
           <div className="md:w-3/12">

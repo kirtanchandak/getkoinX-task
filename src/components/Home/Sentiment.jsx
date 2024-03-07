@@ -1,26 +1,19 @@
-import file from "../../assets/file.png";
-import toTheMoon from "../../assets/toTheMoon.png";
 import iButton from "../../assets/iButton.png";
 import seventysix from "../../assets/76.png";
-
-const cards = [
-  {
-    id: 1,
-    name: "Lorem ipsum dolor sit amet consectetur. Dui vel quis dignissim mattis enim tincidunt",
-    desc: "Lorem ipsum dolor sit amet consectetur. Ac phasellus risus est faucibus metus quis. Amet sapien quam viverra adipiscing condimentum. Ac consectetur et pretium in a bibendum in. Sed vitae sit nisi viverra natoque lacinia libero enim.",
-    img: file,
-    color: "#E8F4FD",
-  },
-  {
-    id: 2,
-    name: "Lorem ipsum dolor sit amet consectetur. Dui vel quis dignissim mattis enim tincidunt",
-    desc: "Lorem ipsum dolor sit amet consectetur. Ac phasellus risus est faucibus metus quis. Amet sapien quam viverra adipiscing condimentum. Ac consectetur et pretium in a bibendum in. Sed vitae sit nisi viverra natoque lacinia libero enim.",
-    img: toTheMoon,
-    color: "#EBF9F4",
-  },
-];
+import { cards } from "../../utils/data";
+import rightArrow from "../../assets/rightarrow.png";
+import leftArrow from "../../assets/leftarrow.png";
 
 function Sentiment() {
+  const slideLeft = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft - 500;
+  };
+
+  const slideRight = () => {
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft + 500;
+  };
   return (
     <>
       <div className="mt-5 ">
@@ -36,17 +29,33 @@ function Sentiment() {
               <img src={iButton} alt="" className="object-contain w-6 mt-1" />
             </div>
 
-            <div className="mt-4 overflow-x-auto">
-              <div className="flex md:p-8 gap-4 min-w-[1000px] z-1">
-                {cards.map((card) => (
-                  <div className={`bg-[${card.color}] rounded-xl py-6 px-4`}>
-                    <div className="flex gap-4">
-                      <img src={card.img} alt="" className="object-contain" />
-                      <h1 className="font-bold text-sm">{card.name}</h1>
+            <div className="relative mt-4">
+              <button onClick={slideLeft}>
+                <img
+                  src={leftArrow}
+                  className="absolute top-1/2 left-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 z-10 mt-4"
+                />
+              </button>
+              <button onClick={slideRight}>
+                <img
+                  src={rightArrow}
+                  className="absolute top-1/2 right-[-20px] transform -translate-y-1/2 opacity-50 cursor-pointer hover:opacity-100 z-10 mt-4"
+                />
+              </button>
+              <div id="slider" className="overflow-x-auto">
+                <div className="flex md:p-8 gap-4 min-w-[1000px] ">
+                  {cards.map((card) => (
+                    <div className={`bg-[${card.color}] rounded-xl py-6 px-4`}>
+                      <div className="flex gap-4">
+                        <img src={card.img} alt="" className="object-contain" />
+                        <h1 className="font-bold text-sm">{card.name}</h1>
+                      </div>
+                      <div className="font-normal ml-16 text-sm">
+                        {card.desc}
+                      </div>
                     </div>
-                    <div className="font-normal ml-16 text-sm">{card.desc}</div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
             <div className="mt-6">
