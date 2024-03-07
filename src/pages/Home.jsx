@@ -12,26 +12,42 @@ import polygon from "../assets/polygon.png";
 import MoreCurrencies from "../components/Home/MoreCurrencies";
 import before from "../assets/__before.png";
 import Tokenomics from "../components/Home/Tokenomics";
+import { useParams } from "react-router-dom";
 
 function Home() {
+  const param = useParams();
+  const slug = param?.slug;
+
   const [trendingCoins, setTrendingCoins] = useState([]);
-  //   useEffect(() => {
-  //     const getResponse = async () => {
-  //       const apiUrl = `https://api.coingecko.com/api/v3/simple/price?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK`;
-  //       const params = {
-  //         ids: "bitcoin",
-  //         vs_currencies: "inr,usd",
-  //         include_24hr_change: "true",
-  //       };
-  //       try {
-  //         const res = await axios.get(apiUrl, { params });
-  //         console.log(res.data);
-  //       } catch (err) {
-  //         console.log(err);
-  //       }
-  //     };
-  //     getResponse();
-  //   }, []);
+  const [coinImg, setCoinImg] = useState("");
+  const [coinSymbol, setCoinSymbol] = useState("");
+  const [inrPrice, setInrPrice] = useState("");
+  const [usdPrice, setUsdPrice] = useState("");
+  const [coinName, setCoinName] = useState("");
+  const [percentageChange, setPercentageChange] = useState("");
+
+  useEffect(() => {
+    const getUSDINRData = async () => {
+      const apiUrl = `https://api.coingecko.com/api/v3/simple/price?x_cg_api_key=3Be9SxR7dUMqAdoN2bR9f4qK`;
+      const params = {
+        ids: slug,
+        vs_currencies: "inr,usd",
+        include_24hr_change: "true",
+      };
+      try {
+        const res = await axios.get(apiUrl, { params });
+        console.log(res.data);
+        setInrPrice(res?.data[slug]?.inr);
+        setUsdPrice(res?.data[slug]?.usd);
+        setPercentageChange(
+          parseFloat(res?.data[slug]?.usd_24h_change).toFixed(2)
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUSDINRData();
+  }, []);
 
   useEffect(() => {
     const getTrendingCoins = async () => {
@@ -49,6 +65,29 @@ function Home() {
     };
     getTrendingCoins();
   }, []);
+
+  useEffect(() => {
+    const getDynamicData = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.coingecko.com/api/v3/coins/${slug}?x_cg_api_key=${
+            import.meta.env.VITE_GECKO_API_KEY
+          }`
+        );
+
+        console.log(res?.data);
+        setCoinImg(res?.data?.image?.thumb);
+        setCoinSymbol(res?.data?.symbol.toUpperCase());
+        setCoinName(
+          res?.data?.id.charAt(0).toUpperCase() + res?.data?.id.slice(1)
+        );
+        console.log(coinName);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getDynamicData();
+  });
 
   const timeline = [
     {
@@ -93,12 +132,12 @@ function Home() {
   return (
     <>
       <Navbar />
-      <div className="md:px-20 px-6 mt-8">
+      <div className="lg:px-20 md:px-12 px-6 mt-8">
         <div>
           <p className="flex gap-2">
             <span className="text-[#3E5765]">Cryptocurrencies</span>{" "}
             <img src={before} alt="" className="object-contain" />
-            <span className="font-semibold">Bitcoin</span>
+            <span className="font-semibold">{coinName}</span>
           </p>
         </div>
         <div className="md:flex mt-4 md:gap-6">
@@ -108,12 +147,12 @@ function Home() {
                 <div className="flex gap-8">
                   <div className="flex gap-3">
                     <img
-                      src={bitcoin}
+                      src={coinImg}
                       alt="btc"
                       className="w-8 object-contain"
                     />
-                    <h1 className="text-2xl font-bold mt-1">Bitcoin</h1>
-                    <p className="font-semibold text-gray-500">BTC</p>
+                    <h1 className="text-2xl font-bold mt-1">{coinName}</h1>
+                    <p className="font-semibold text-gray-500">{coinSymbol}</p>
                   </div>
                   <div>
                     <button className="p-2 bg-gray-500 text-white rounded-lg">
@@ -125,8 +164,8 @@ function Home() {
               <div className="mt-8">
                 <div className="flex md:gap-16 gap-3">
                   <div>
-                    <h1 className="text-3xl font-bold">$46,756</h1>
-                    <p className="mt-[1px] font-medium text-md">Rs.23,45,678</p>
+                    <h1 className="text-3xl font-bold">${usdPrice}</h1>
+                    <p className="mt-[1px] font-medium text-md">₹{inrPrice}</p>
                   </div>
                   <div className="mt-1 flex gap-2">
                     <button className="bg-[#EBF9F4] text-[#14B079] rounded-md px-3 py-1 h-8 flex gap-2">
@@ -135,21 +174,21 @@ function Home() {
                         alt=""
                         className="object-contain mt-2"
                       />{" "}
-                      2.51%
+                      {percentageChange}
                     </button>
                     <p className="md:mt-1 mt-[2px]">{"(24H)"}</p>
                   </div>
                 </div>
                 <div className="mt-5">
                   <div className="md:flex justify-between">
-                    <p className="md:text-xl text-sm font-bold">
-                      Bitcoin Price Chart (USD)
+                    <p className="lg:text-xl text-sm font-bold">
+                      {coinName} Price Chart ({coinSymbol})
                     </p>
-                    <div className="flex md:gap-5 mt-3 md:mt-0">
+                    <div className="flex lg:gap-5 mt-3 md:mt-0">
                       {timeline.map((timeline, index) => (
                         <button
                           key={index}
-                          className={`md:px-3 px-2 py-1 text-xs md:text-sm rounded-2xl focus:outline-none ${
+                          className={`lg:px-3 px-2 py-1 text-xs md:text-sm rounded-2xl focus:outline-none ${
                             activeTimeline === index
                               ? "bg-[#E2ECFE] text-[#0141CF]"
                               : ""
@@ -162,7 +201,7 @@ function Home() {
                     </div>
                   </div>
                   <div className="mt-5">
-                    <TradingViewWidget />
+                    <TradingViewWidget symbol={coinSymbol} />
                   </div>
                 </div>
               </div>
@@ -179,7 +218,7 @@ function Home() {
                 <h1 className="text-xl font-bold leading-8">
                   Get Started with KoinX <br /> for FREE
                 </h1>
-                <p className="px-8 leading-7 mt-3">
+                <p className="lg:px-8 leading-7 mt-3">
                   With our range of features that you can equip for free, KoinX
                   allows you to be more educated and aware of your tax reports.
                 </p>

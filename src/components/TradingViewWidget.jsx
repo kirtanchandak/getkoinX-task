@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, memo } from "react";
 
-function TradingViewWidget() {
+function TradingViewWidget({ symbol }) {
   const container = useRef();
+  console.log(symbol);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -12,7 +13,7 @@ function TradingViewWidget() {
     script.innerHTML = `
         {
           "autosize": true,
-          "symbol": "BITSTAMP:BTCUSD",
+          "symbol": "BITSTAMP:${symbol}USD",
           "interval": "1H",
           "timezone": "Etc/UTC",
           "theme": "light",
@@ -27,7 +28,7 @@ function TradingViewWidget() {
           "support_host": "https://www.tradingview.com"
         }`;
     container.current.appendChild(script);
-  }, []);
+  }, [symbol]);
 
   return (
     <div
